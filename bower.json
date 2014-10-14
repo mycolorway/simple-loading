@@ -1,0 +1,32 @@
+{
+  "name": "simple-loading",
+  "version": "0.1.0",
+  "homepage": "https://github.com/mycolorway/simple-loading",
+  "authors": [
+    "kshift <kshift.lv@gmail.com>"
+  ],
+  "description": "a simple loading plugin based on Simple Module",
+  "main": "lib/loading.js",
+  "keywords": [
+    "loading"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "spec",
+    "node_modules",
+    "vendor",
+    "Gemfile",
+    "Gemfile.lock",
+    "Gruntfile.coffee",
+    "package.json",
+    "README.md",
+    "umd.hbs"
+  ],
+  "dependencies": {
+    "jquery": "2.x",
+    "simple-module": "2.x",
+    "fontawesome": "~4.0.3"
+  }
+}
+

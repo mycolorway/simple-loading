@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Loading Demo</title>
+    <meta charset="utf-8" />
+    <link media="all" rel="stylesheet" type="text/css" href="vendor/bower/fontawesome/css/font-awesome.min.css" />
+    <link media="all" rel="stylesheet" type="text/css" href="styles/loading.css" />
+    <style type="text/css" media="all">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            width: 600px;
+            margin: 50px auto;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 6px 10px;
+            margin-right: 10px;
+            border: 1px solid transparent;
+            color: #fff;
+            background-color: #a6bbb6;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            -moz-background-clip: padding;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+        }
+
+        .btn.disabled,
+        .btn[disabled] {
+            background-color:#ccc;
+            color:#eee;
+            cursor: default;
+        }
+
+    </style>
+
+    <script type="text/javascript" src="vendor/bower/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="vendor/bower/simple-module/lib/module.js"></script>
+    <script type="text/javascript" src="lib/loading.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $(document).on("click", "#demo-one", function(e) {
+                var loading = simple.loading();  // type: "default"
+
+                setTimeout(function() {
+                    loading.destroy();
+                }, 5000);
+            }).on("click", "#demo-two", function(e) {
+                var loading = simple.loading({
+                    type: $(e.currentTarget),
+                    msg: "正在加载..."
+                });
+
+                setTimeout(function() {
+                    loading.destroy();
+                }, 5000);
+            }).on("click", "#demo-three", function(e) {
+                var loading = simple.loading({
+                    type: $(e.currentTarget)
+                });
+
+                setTimeout(function() {
+                    loading.destroy();
+                }, 5000);
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <p>Demo 点击后 5s loading 结束</p>
+    <a href="javascript:;" id="demo-one">global loading</a>
+    <button id="demo-two" class="btn">button loading</button>
+    <a href="javascript:;" id="demo-three" class="btn">tiny loading</a>
+</div>
+
+</body>
+
+</html>
+
+
