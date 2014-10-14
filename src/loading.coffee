@@ -78,7 +78,7 @@ class Loading extends SimpleModule
 
   destroy: ->
     if @opts.type is "default"
-      $( ".simple-loading-mask, .simple-loading" ).remove()
+      $( ".simple-loading-mask, .simple-global-loading" ).remove()
     else if @opts.type instanceof jQuery
       $btn = @opts.type
       if $btn.is "button"
@@ -87,7 +87,7 @@ class Loading extends SimpleModule
           .prop "disabled", false
           .removeClass "simple-loading"
           .removeData "simple origin-text"
-      else
+      else if $btn.is "a"
         $btn.show().next(".simple-tiny-loading").remove()
 
 
