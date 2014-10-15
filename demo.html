@@ -64,7 +64,7 @@
                 loading.show();
 
                 setTimeout(function() {
-                    // loading.destroy();
+                    loading.destroy();
                 }, 3000);
             }).on("click", "#demo-two", function(e) {
                 var loading = simple.loading({
@@ -95,7 +95,7 @@
 <body>
 
 <div class="wrapper">
-    <p>Demo 点击后 5s loading 结束</p>
+    <p>Demo 点击后 3s loading 结束</p>
     <a href="javascript:;" id="demo-one">global loading</a>
     <a href="javascript:;" id="demo-one-plus">global loading(image)</a>
     <button id="demo-two" class="btn">button loading</button>
