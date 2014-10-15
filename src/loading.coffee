@@ -1,17 +1,29 @@
 
 class Loading extends SimpleModule
 
+  @i18n:
+    "zh-CN":
+      loading: "正在加载数据..."
+    "en":
+      loading: "loading..."
+
   opts:
-    type: "default"  # or button element
-    msg: "Loading..."
+    type: "global"  # "tiny" or "button"
+    msg: Loading._t('loading')
+    el: null
+    image: null     # loading image url
 
   @_tpl:
     mask: """
-      <div class="simple-loading-mask" class="hidden"></div>
+      <div class="simple-loading-mask"></div>
     """
 
     blank: """
       <img class="simple-tiny-loading" src="data:image/gif;base64,R0lGODlhAQABAJH/AP///wAAAMDAwAAAACH5BAEAAAIALAAAAAABAAEAAAICVAEAOw=="/>
+    """
+
+    icon: """
+      <i class='fa fa-circle-o-notch fa-spin'></i>
     """
 
   _init: ->
@@ -19,76 +31,96 @@ class Loading extends SimpleModule
       throw "simple loading: option type is required"
       return
 
+    @isGlobal =  (@opts.type is "global") or !(@opts.el instanceof jQuery)
     @_render()
 
+
   _render: ->
-    if @opts.type is "default"
-      $mask = $(Loading._tpl.mask).appendTo $(document.body)
-      $loading = $("<div class='simple-loading simple-global-loading' />").data("loading", @)
-        .text(@opts.msg).appendTo $(document.body)
+    if @isGlobal
+      @maskEl = $(Loading._tpl.mask).appendTo $(document.body)
+      @loadingEl = $("<div class='simple-loading simple-global-loading' />").data("loading", @)
+      if @opts.image
+        @loadingEl.text(@opts.msg).css
+          backgroundImage: "url(#{@opts.image})"
+      else
+        @loadingEl.html "#{Loading._tpl.icon} #{@opts.msg}"
+      @loadingEl.appendTo $(document.body)
+    else
+      @btnEl = @opts.el
+      @btnEl.addClass("simple-loading").data("loading", @)
 
-      document.offsetHeight  # reflow
-      $mask.css
-        cursor: "default"
-      .removeClass "hidden"
+      if @opts.type is "button"
+          @btnEl.data("origin-text", @btnEl.text())
+      else if @opts.type is "tiny"
+        @tinyEl = $(Loading._tpl.blank).css
+          position: @btnEl.css( "position" )
+          width: @btnEl.outerWidth()
+          height: @btnEl.outerHeight()
+          marginTop: @btnEl.css( "marginTop" )
+          marginRight: @btnEl.css( "marginRight" )
+          marginBottom: @btnEl.css( "marginBottom" )
+          marginLeft: @btnEl.css( "marginLeft" )
+          float: @btnEl.css( "float" )
+        .insertAfter @btnEl
 
-      $loading.css
-        marginTop:  - $loading.outerHeight() * 0.5
-        marginLeft: - $loading.outerWidth()  * 0.5
-
-    else if @opts.type instanceof jQuery
-      $btn = @opts.type
-      $btn.addClass("simple-loading").data("loading", @)
-
-      if $btn.is "button"
-          $btn.data("origin-text", $btn.text())
-          .css
-            width: $btn.outerWidth()
-          .html "<i class='fa fa-spinner fa-spin'></i> #{@opts.msg}"
-          .prop "disabled", true
-      else if $btn.is "a"
-        $img = $(Loading._tpl.blank).css
-          position: $btn.css( "position" )
-          display: $btn.css( "display" )
-          width: $btn.outerWidth()
-          height: $btn.outerHeight()
-          marginTop: $btn.css( "marginTop" )
-          marginRight: $btn.css( "marginRight" )
-          marginBottom: $btn.css( "marginBottom" )
-          marginLeft: $btn.css( "marginLeft" )
-          float: $btn.css( "float" )
-          verticalAlign: 'middle'
-          background: "url(/assets/tiny-loading.gif) no-repeat 50% 50%"
-        .insertAfter $btn
-
-        top = $btn.css("top")
-        right = $btn.css("right")
-        bottom = $btn.css("bottom")
-        left = $btn.css("left")
+        top = @btnEl.css("top")
+        right = @btnEl.css("right")
+        bottom = @btnEl.css("bottom")
+        left = @btnEl.css("left")
         if not top or top is "auto"
-          $img.css "bottom", bottom
+          @tinyEl.css "bottom", bottom
         else
-          $img.css "top", top
+          @tinyEl.css "top", top
         if not left or left is "auto"
-          $img.css "right", right
+          @tinyEl.css "right", right
         else
-          $img.css "left", left
+          @tinyEl.css "left", left
 
-        $btn.hide()
+
+  show: ->
+    document.offsetHeight  # reflow
+
+    if @isGlobal
+      @loadingEl.css
+        marginTop:  - @loadingEl.outerHeight() * 0.5
+        marginLeft: - @loadingEl.outerWidth()  * 0.5
+      .fadeIn()
+      @maskEl.fadeIn()
+    else if @opts.type is "button"
+      @btnEl.css
+        width: @btnEl.outerWidth()
+      .html "#{Loading._tpl.icon} #{@opts.msg}"
+      .prop "disabled", true
+    else if @opts.type is "tiny"
+      @tinyEl.css
+        display: @btnEl.css( "display" )
+      @btnEl.hide()
+
+
+  hide: ->
+    if @isGlobal
+      @loadingEl.fadeOut()
+      @maskEl.fadeOut()
+    else if @opts.type is "button"
+      @btnEl.text @btnEl.data("origin-text")
+        .attr "style", ""
+        .prop "disabled", false
+    else if @opts.type is "tiny"
+      @btnEl.show().next(".simple-tiny-loading").hide()
 
   destroy: ->
-    if @opts.type is "default"
-      $( ".simple-loading-mask, .simple-global-loading" ).remove()
-    else if @opts.type instanceof jQuery
-      $btn = @opts.type
-      $btn.removeClass "simple-loading"
-      if $btn.is "button"
-        $btn.text $btn.data("origin-text")
-          .attr "style", ""
-          .prop "disabled", false
-          .removeData "simple origin-text"
-      else if $btn.is "a"
-        $btn.show().next(".simple-tiny-loading").remove()
+    if @isGlobal
+      @loadingEl.fadeOut =>
+        @loadingEl.remove()
+      @maskEl.fadeOut =>
+        @maskEl.remove()
+    else if @opts.type is "button"
+      @btnEl.text @btnEl.data("origin-text")
+        .attr "style", ""
+        .prop "disabled", false
+        .removeData "simple origin-text"
+    else if @opts.type is "tiny"
+      @btnEl.show().next(".simple-tiny-loading").remove()
 
 
 loading = (opts) ->

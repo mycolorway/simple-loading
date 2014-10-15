@@ -48,28 +48,35 @@
     <script type="text/javascript">
         $(function() {
             $(document).on("click", "#demo-one", function(e) {
-                var loading = simple.loading();  // type: "default"
+                var loading = simple.loading({
+                    type: "global"
+                });
+                loading.show();
 
                 setTimeout(function() {
                     loading.destroy();
-                }, 5000);
+                }, 3000);
             }).on("click", "#demo-two", function(e) {
                 var loading = simple.loading({
-                    type: $(e.currentTarget),
-                    msg: "正在加载..."
+                    type: "button",
+                    el: $(e.currentTarget),
+                    msg: "正在加载···"
                 });
+                loading.show()
 
                 setTimeout(function() {
                     loading.destroy();
-                }, 5000);
+                }, 3000);
             }).on("click", "#demo-three", function(e) {
                 var loading = simple.loading({
-                    type: $(e.currentTarget)
+                    type: "tiny",
+                    el: $(e.currentTarget)
                 });
+                loading.show();
 
                 setTimeout(function() {
                     loading.destroy();
-                }, 5000);
+                }, 3000);
             });
         });
     </script>
@@ -81,7 +88,7 @@
     <p>Demo 点击后 5s loading 结束</p>
     <a href="javascript:;" id="demo-one">global loading</a>
     <button id="demo-two" class="btn">button loading</button>
-    <a href="javascript:;" id="demo-three" class="btn">tiny loading</a>
+    <a href="javascript:;" id="demo-three">tiny loading</a>
 </div>
 
 </body>

@@ -24,13 +24,23 @@ simple-loading
 
 ```javascript
 simple.loading({
-    type: "default",     // 三种类型，"default" 或 <button> <a> jQuery Object
-    msg: "Loading..."    // 显示 loading 信息
+    type: "global",       // 三种类型，"global" "button" "tiny"
+    msg: "Loading...",    // 显示 loading 信息
+    el: null,             // "button" "tiny" 时需要传递按钮元素
+    image: null           // 图片地址，global loading 可用 loading 图片替换图标
 });
 ```
-`type` 参数为 `default` 时，显示为全局的 loading。当传递 jQuery Object 时，针对元素类型显示两种 loading 状态（font awesome spinner 图标或 gif 图标）。
+`type` 参数为 `global` 时，显示为全局的 loading，初始化后需要调用 `show()` 方法来显示 loading 状态。
 
 ### 方法
+
+**show()**
+
+显示 loading 状态。
+
+**hide()**
+
+隐藏 loading 状态。
 
 **destroy()**
 

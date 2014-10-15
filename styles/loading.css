@@ -1,17 +1,24 @@
 .simple-loading.simple-global-loading {
+  display: none;
   position: fixed;
   top: 50%;
   left: 50%;
   margin: 0 0 0 -9999px;
-  padding: 20px 20px 20px 60px;
-  background: #ffffff url("/assets/loading.gif") no-repeat 15px 14px;
+  padding: 20px;
+  background-color: #fff;
   z-index: 9999;
   -webkit-border-radius: 6px;
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
+.simple-loading.simple-global-loading .fa {
+  font-size: 24px;
+  line-height: 30px;
+  vertical-align: middle;
+}
 
 .simple-loading-mask {
+  display: none;
   width: 100%;
   height: 100%;
   position: fixed;
@@ -20,11 +27,10 @@
   z-index: 9998;
   background-color: #000;
   opacity: 0.8;
-  cursor: pointer;
-  -webkit-transition: opacity 250ms ease-in-out;
-  -moz-transition: opacity 250ms ease-in-out;
-  transition: opacity 250ms ease-in-out;
 }
-.simple-loading-mask.hidden {
-  opacity: 0;
+
+.simple-tiny-loading {
+  display: none;
+  vertical-align: middle;
+  background: url("../assets/tiny-loading.gif") no-repeat 50% 50%;
 }
