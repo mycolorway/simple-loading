@@ -40,8 +40,10 @@ class Loading extends SimpleModule
       @maskEl = $(Loading._tpl.mask).appendTo $(document.body)
       @loadingEl = $("<div class='simple-loading simple-global-loading' />").data("loading", @)
       if @opts.image
-        @loadingEl.text(@opts.msg).css
-          backgroundImage: "url(#{@opts.image})"
+        @loadingEl.text(@opts.msg)
+          .addClass "simple-global-loading-image"
+          .css
+            backgroundImage: "url(#{@opts.image})"
       else
         @loadingEl.html "#{Loading._tpl.icon} #{@opts.msg}"
       @loadingEl.appendTo $(document.body)

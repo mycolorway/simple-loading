@@ -56,6 +56,16 @@
                 setTimeout(function() {
                     loading.destroy();
                 }, 3000);
+            }).on("click", "#demo-one-plus", function(e) {
+                var loading = simple.loading({
+                    type: "global",
+                    image: "./assets/loading.gif"
+                });
+                loading.show();
+
+                setTimeout(function() {
+                    // loading.destroy();
+                }, 3000);
             }).on("click", "#demo-two", function(e) {
                 var loading = simple.loading({
                     type: "button",
@@ -87,6 +97,7 @@
 <div class="wrapper">
     <p>Demo 点击后 5s loading 结束</p>
     <a href="javascript:;" id="demo-one">global loading</a>
+    <a href="javascript:;" id="demo-one-plus">global loading(image)</a>
     <button id="demo-two" class="btn">button loading</button>
     <a href="javascript:;" id="demo-three">tiny loading</a>
 </div>

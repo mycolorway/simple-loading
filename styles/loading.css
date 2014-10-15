@@ -11,6 +11,11 @@
   -moz-border-radius: 6px;
   border-radius: 6px;
 }
+.simple-loading.simple-global-loading.simple-global-loading-image {
+  padding-left: 60px;
+  background-repeat: no-repeat;
+  background-position: 15px 50%;
+}
 .simple-loading.simple-global-loading .fa {
   font-size: 24px;
   line-height: 30px;
