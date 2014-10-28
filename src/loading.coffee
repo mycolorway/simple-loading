@@ -12,6 +12,7 @@ class Loading extends SimpleModule
     msg: Loading._t('loading')
     el: null
     image: null     # loading image url
+    autoshow: true
 
   @_tpl:
     mask: """
@@ -33,6 +34,7 @@ class Loading extends SimpleModule
 
     @isGlobal =  (@opts.type is "global") or !(@opts.el instanceof jQuery)
     @_render()
+    @show() if @opts.autoshow
 
 
   _render: ->
