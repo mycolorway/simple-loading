@@ -112,6 +112,7 @@ class Loading extends SimpleModule
     else if @opts.type is "tiny"
       @btnEl.show().next(".simple-tiny-loading").hide()
 
+
   destroy: ->
     if @isGlobal
       @loadingEl.fadeOut =>
@@ -127,5 +128,11 @@ class Loading extends SimpleModule
       @btnEl.show().next(".simple-tiny-loading").remove()
 
 
+  @destroy: () ->
+    loading = $(".simple-global-loading").data("loading")
+    loading.destroy()
+
 loading = (opts) ->
   new Loading(opts)
+
+loading.destroy = Loading.destroy
