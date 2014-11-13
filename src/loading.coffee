@@ -47,7 +47,7 @@ class Loading extends SimpleModule
           .css
             backgroundImage: "url(#{@opts.image})"
       else
-        @loadingEl.html "#{Loading._tpl.icon} #{@opts.msg}"
+        @loadingEl.html "#{Loading._tpl.icon} <span>#{@opts.msg}</span>"
       @loadingEl.appendTo $(document.body)
     else
       @btnEl = @opts.el
