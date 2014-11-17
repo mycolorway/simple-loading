@@ -17,7 +17,7 @@
   background-position: 15px 50%;
 }
 .simple-loading.simple-global-loading .fa {
-  margin-right: 5px;
+  padding: 5px;
   font-size: 24px;
 }
 
