@@ -110,7 +110,9 @@ class Loading extends SimpleModule
         .attr "style", ""
         .prop "disabled", false
     else if @opts.type is "tiny"
-      @btnEl.show().next(".simple-tiny-loading").hide()
+      @btnEl.show()
+        .attr "style", ""
+        .next(".simple-tiny-loading").remove()
 
 
   destroy: ->
@@ -125,7 +127,9 @@ class Loading extends SimpleModule
         .prop "disabled", false
         .removeData "simple origin-text"
     else if @opts.type is "tiny"
-      @btnEl.show().next(".simple-tiny-loading").remove()
+      @btnEl.show()
+        .attr "style", ""
+        .next(".simple-tiny-loading").remove()
 
 
   @destroy: () ->
