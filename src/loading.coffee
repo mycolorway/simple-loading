@@ -24,7 +24,7 @@ class Loading extends SimpleModule
     """
 
     icon: """
-      <i class='fa fa-circle-o-notch fa-spin'></i>
+      <i class='icon-circle-o-notch'></i>
     """
 
   _init: ->
