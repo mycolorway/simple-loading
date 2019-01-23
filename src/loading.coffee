@@ -134,7 +134,7 @@ class Loading extends SimpleModule
 
   @destroy: () ->
     loading = $(".simple-global-loading").data("loading")
-    loading.destroy()
+    loading?.destroy()
 
 loading = (opts) ->
   new Loading(opts)
